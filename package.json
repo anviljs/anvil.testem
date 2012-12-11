@@ -2,7 +2,7 @@
   "author": "Alex Robson <alex@sharplearningcurve.com> (http://sharplearningcurve.com)",
   "name": "anvil.testem",
   "description": "Testem runner integration for anvil.js",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "repository": {
     "type": "git",
     "url": "git://github.com/arobson/anvil.testem"
@@ -12,8 +12,8 @@
   },
   "main": "./lib/testem.js",
   "dependencies": { 
-    "testem": "git://github.com/arobson/testem.git#master"
+    "testem": ">=0.2.44"
   },
   "optionalDependencies": {},
-  "keywords": [ "anvil", "http", "express", "socket.io" ]
+  "keywords": [ "anvil", "test", "testem" ]
 }

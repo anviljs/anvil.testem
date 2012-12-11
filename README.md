@@ -1,50 +1,34 @@
-## Anvil HTTP Plugin
-Provides an integrated web host using express and socket.io. Extends anvil with functionality to allow other plugins to host features and content.
+## Anvil Testem
 
-This plugin requires anvil.js version 0.8.* or greater.
+This adds testem integration to anvil. Testem is my favorite testing tool and getting it into anvil is a big win.
 
-## Installation
+## Command Line
 
-	anvil install anvil.http
+Testem is activated by adding a --testem argument to the anvil command line:
 
-## Usage
+```bash
+anvil --testem
+```
 
-	anvil --host
+It's recommended that you run testem in conjunction with Anvil's CI mode:
 
-	anvil --host --browser
+```bash
+anvil --ci --testem
+```
 
-### --browser
-Automatically open a browser tab in your default browser pointed to the root url. Why? Because it's awesome.
+This will cause anvil to rebuild your solution on any file change and then re-trigger the test suites to run in testem.
+
 
 ## Configuration
-Configuration can be changed by adding any of the three properties to the build file under "anvil.http": {}.
+The configuration section for this plugin matches testem's configuration options:
 
-### "contentTypes"
-A hash where the key is the extension of the requested file and the value is the mimeType specification. In general, this is only necessary if you're adding support for a file extension that needs to be compiled on the fly. 
-
-Example:
-	"contentTypes": { 
-		".coffee": "application/javascript"
-	}
-
-### "port"
-Specifies what port the server will listen to. The default is 3080.
-
-Example:
-
-	"port": 3080
-			
-### "paths"
-A hash where the key is the relative url to map to a specific directory or file. The following example shows the default setting which causes the output directory to get mapped to the top level.
-
-Example:
-			
-	"paths": {
-		"/": anvil.config.output
-	}
-
-## API
-Currently the only call that this plugin adds to anvil is registerPath.
-
-### registerPath( url, filePath )
-This lets you register static files to serve at a specific relative url
+```javascript
+"anvil.testem": {
+	"port": which port to run testem at - default is 7357
+    "launch": list of launchers to use ( Chrome, Firefox, PhantomJS, ...)
+    "test_page": the page to use to run tests ( example: "spec/index.html" )
+    "timeout": timeout for a browser
+    "framework": test framework to use
+    "src_files": files or patterns - unlikely you'd ever use this w/ anvil
+}
+```

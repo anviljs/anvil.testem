@@ -1,5 +1,4 @@
-var Api = require( "testem" ),
-	api = new Api();
+var Api;
 
 module.exports = function( _, anvil ) {
 
@@ -12,6 +11,7 @@ module.exports = function( _, anvil ) {
 		config: {
 			
 		},
+		api: undefined,
 
 		configure: function( config, command, done ) {
 			var self = this;
@@ -34,8 +34,12 @@ module.exports = function( _, anvil ) {
 		},
 
 		run: function( done ) {
-			var self = this;
-			if( !api.app ) {
+			var self = this,
+				api = this.api;
+
+			if( !api || !api.app ) {
+				Api = require( "testem" );
+				this.api = api = new Api();
 				if( this.config.mode === "dev" ) {
 					api.startDev( this.config );
 					var logger = api.getLogger( "build" );

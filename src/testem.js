@@ -17,12 +17,6 @@ module.exports = function( _, anvil ) {
 			var self = this;
 			if( command.testem || config.autoTest ) {
 				this.config.mode = "dev";
-				if( !config.src_files || _.isEmpty( config.srcFiles ) ) {
-					var sourcePattern = anvil.fs.buildPath( config.source, "/**.js" ),
-						specPattern = anvil.fs.buildPath( config.spec, "/**.js" ),
-						outputPattern = anvil.fs.buildPath( config.output, "/**.js" );
-					this.config.src_files = [ sourcePattern, specPattern, outputPattern ];
-				}
 				anvil.on( "rebuild", function( step ) {
 					if( step !== "test" ) {
 						self.logger.clear();
